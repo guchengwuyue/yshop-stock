@@ -86,7 +86,6 @@ YshopAdmin/
 ├── view/                    # think-view 模板
 ├── runtime/                 # 缓存、日志、导出临时文件
 ├── .env                     # 本地环境（勿提交密钥）
-├── AGENTS.md                # Agent / 开发约定
 └── README.md
 ```
 

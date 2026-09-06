@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>{include file="/common/header" title="添加菜单" /}</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content">
+<form class="form-horizontal m" id="form-menu-add">
+  <input name="parentId" type="hidden" value="{$menu.menuId|default=0}">
+  <div class="form-group"><label class="col-sm-3 control-label">上级菜单：</label><div class="col-sm-8"><input class="form-control" value="{$menu.menuName|default='主目录'}" readonly></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label is-required">菜单类型：</label><div class="col-sm-8"><label class="radio-box"><input type="radio" name="menuType" value="M">目录</label><label class="radio-box"><input type="radio" name="menuType" value="C" checked>菜单</label><label class="radio-box"><input type="radio" name="menuType" value="F">按钮</label></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label is-required">菜单名称：</label><div class="col-sm-8"><input name="menuName" class="form-control" required></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">显示排序：</label><div class="col-sm-8"><input name="orderNum" class="form-control" type="number" value="0"></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">请求地址：</label><div class="col-sm-8"><input name="url" class="form-control"></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">打开方式：</label><div class="col-sm-8"><select name="target" class="form-control"><option value="menuItem">页签</option><option value="menuBlank">新窗口</option></select></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">权限标识：</label><div class="col-sm-8"><input name="perms" class="form-control"></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">图标：</label><div class="col-sm-8"><input name="icon" class="form-control" value="fa fa-bar-chart-o"></div></div>
+  <div class="form-group"><label class="col-sm-3 control-label">显示状态：</label><div class="col-sm-8"><label class="radio-box"><input type="radio" name="visible" value="0" checked>显示</label><label class="radio-box"><input type="radio" name="visible" value="1">隐藏</label></div></div>
+</form>
+</div>
+{include file="/common/footer" /}
+<script>function submitHandler(){ if($.validate.form()){ $.operate.save(ctx+"system/menu/add", $("#form-menu-add").serialize()); } }</script>
+</body></html>

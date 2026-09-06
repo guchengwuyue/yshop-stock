@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 05/09/2026 22:58:28
+ Date: 06/09/2026 16:34:45
 */
 
 SET NAMES utf8mb4;
@@ -44,11 +44,12 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
+INSERT INTO `gen_table` VALUES (1, 'sys_role', '角色信息表', NULL, NULL, 'Role', 'crud', 'app', 'system', 'role', '角色信息表', 'admin', 1, '0', '/', NULL, 'admin', '2026-09-05 23:30:42', '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -78,11 +79,23 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table_column
 -- ----------------------------
+INSERT INTO `gen_table_column` VALUES (1, 1, 'role_id', '角色ID', 'bigint(20)', 'int', 'roleId', '1', '1', '0', '0', '0', '1', '0', 'EQ', 'input', '', 1, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (2, 1, 'role_name', '角色名称', 'varchar(30)', 'string', 'roleName', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 2, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (3, 1, 'role_key', '角色权限字符串', 'varchar(100)', 'string', 'roleKey', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 3, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (4, 1, 'role_sort', '显示顺序', 'int(4)', 'int', 'roleSort', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 4, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (5, 1, 'data_scope', '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）', 'char(1)', 'string', 'dataScope', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 5, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (6, 1, 'status', '角色状态（0正常 1停用）', 'char(1)', 'string', 'status', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'select', '', 6, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (7, 1, 'del_flag', '删除标志（0代表存在 2代表删除）', 'char(1)', 'string', 'delFlag', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 7, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (8, 1, 'create_by', '创建者', 'varchar(64)', 'string', 'createBy', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'input', '', 8, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (9, 1, 'create_time', '创建时间', 'datetime', 'string', 'createTime', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'datetime', '', 9, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (10, 1, 'update_by', '更新者', 'varchar(64)', 'string', 'updateBy', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'input', '', 10, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (11, 1, 'update_time', '更新时间', 'datetime', 'string', 'updateTime', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'datetime', '', 11, 'admin', '2026-09-05 23:30:42', '', NULL);
+INSERT INTO `gen_table_column` VALUES (12, 1, 'remark', '备注', 'varchar(500)', 'string', 'remark', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'input', '', 12, 'admin', '2026-09-05 23:30:42', '', NULL);
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -100,7 +113,7 @@ CREATE TABLE `sys_config`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_config
@@ -116,7 +129,7 @@ INSERT INTO `sys_config` VALUES (8, '主框架页-菜单导航显示风格', 'sy
 INSERT INTO `sys_config` VALUES (9, '主框架页-是否开启页脚', 'sys.index.footer', 'true', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '是否开启底部页脚显示（true显示，false隐藏）');
 INSERT INTO `sys_config` VALUES (10, '主框架页-是否开启页签', 'sys.index.tagsView', 'true', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '是否开启菜单多页签显示（true显示，false隐藏）');
 INSERT INTO `sys_config` VALUES (11, '用户登录-黑名单列表', 'sys.login.blackIPList', '', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '设置登录IP黑名单限制，多个匹配项以;分隔，支持匹配（*通配、网段）');
-INSERT INTO `sys_config` VALUES (12, '系统演示-是否开启演示模式', 'sys.demo.enabled', 'false', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '是否开启演示模式（true开启后禁止增删改）');
+INSERT INTO `sys_config` VALUES (100, '演示模式开启', 'sys.demo.enabled', 'true', 'Y', 'admin', '2026-09-06 15:46:34', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -138,7 +151,7 @@ CREATE TABLE `sys_dept`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 201 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -153,6 +166,7 @@ INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, '意象
 INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, '意象', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2026-09-03 16:41:16', '', NULL);
 INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, '意象', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2026-09-03 16:41:16', '', NULL);
 INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, '意象', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2026-09-03 16:41:16', '', NULL);
+INSERT INTO `sys_dept` VALUES (200, 103, '0,100,101,103', '全工程师', 0, 'yshop先生', '', '', '0', '0', 'admin', '2026-09-06 08:13:44', '', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -309,7 +323,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status`) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 121 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -335,6 +349,16 @@ INSERT INTO `sys_logininfor` VALUES (117, 'admin', '127.0.0.1', '', 'Chrome', 'W
 INSERT INTO `sys_logininfor` VALUES (118, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-05 17:27:43');
 INSERT INTO `sys_logininfor` VALUES (119, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-05 17:27:48');
 INSERT INTO `sys_logininfor` VALUES (120, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-05 22:53:05');
+INSERT INTO `sys_logininfor` VALUES (121, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 07:44:13');
+INSERT INTO `sys_logininfor` VALUES (122, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 10:18:50');
+INSERT INTO `sys_logininfor` VALUES (123, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 10:20:04');
+INSERT INTO `sys_logininfor` VALUES (124, 'yshop', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 10:20:13');
+INSERT INTO `sys_logininfor` VALUES (125, 'yshop', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 10:20:25');
+INSERT INTO `sys_logininfor` VALUES (126, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 10:20:29');
+INSERT INTO `sys_logininfor` VALUES (127, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 15:44:39');
+INSERT INTO `sys_logininfor` VALUES (128, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 15:56:40');
+INSERT INTO `sys_logininfor` VALUES (129, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 15:56:46');
+INSERT INTO `sys_logininfor` VALUES (130, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 16:03:21');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -465,14 +489,15 @@ CREATE TABLE `sys_notice`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
 -- ----------------------------
 INSERT INTO `sys_notice` VALUES (1, '温馨提醒：2018-07-01 意象新版本发布啦', '2', 0xE696B0E78988E69CACE58685E5AEB9, '0', 'admin', '2026-09-03 16:41:17', '', NULL, '管理员');
 INSERT INTO `sys_notice` VALUES (2, '维护通知：2018-07-01 意象系统凌晨维护', '1', 0xE7BBB4E68AA4E58685E5AEB9, '0', 'admin', '2026-09-03 16:41:17', '', NULL, '管理员');
-INSERT INTO `sys_notice` VALUES (3, '意象开源框架介绍', '1', 0x3C703E3C7370616E207374796C653D22636F6C6F723A20726762283233302C20302C2030293B223EE9A1B9E79BAEE4BB8BE7BB8D3C2F7370616E3E3C2F703E3C703E3C666F6E7420636F6C6F723D2223333333333333223E52756F5969E5BC80E6BA90E9A1B9E79BAEE698AFE4B8BAE4BC81E4B89AE794A8E688B7E5AE9AE588B6E79A84E5908EE58FB0E8849AE6898BE69EB6E6A186E69EB6EFBC8CE4B8BAE4BC81E4B89AE68993E980A0E79A84E4B880E7AB99E5BC8FE8A7A3E586B3E696B9E6A188EFBC8CE9998DE4BD8EE4BC81E4B89AE5BC80E58F91E68890E69CACEFBC8CE68F90E58D87E5BC80E58F91E69588E78E87E38082E4B8BBE8A681E58C85E68BACE794A8E688B7E7AEA1E79086E38081E8A792E889B2E7AEA1E79086E38081E983A8E997A8E7AEA1E79086E38081E88F9CE58D95E7AEA1E79086E38081E58F82E695B0E7AEA1E79086E38081E5AD97E585B8E7AEA1E79086E380813C2F666F6E743E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE5B297E4BD8DE7AEA1E790863C2F7370616E3E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE38081E5AE9AE697B6E4BBBBE58AA13C2F7370616E3E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE380813C2F7370616E3E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE69C8DE58AA1E79B91E68EA7E38081E799BBE5BD95E697A5E5BF97E38081E6938DE4BD9CE697A5E5BF97E38081E4BBA3E7A081E7949FE68890E7AD89E58A9FE883BDE38082E585B6E4B8ADEFBC8CE8BF98E694AFE68C81E5A49AE695B0E68DAEE6BA90E38081E695B0E68DAEE69D83E99990E38081E59BBDE99985E58C96E380815265646973E7BC93E5AD98E38081446F636B6572E983A8E7BDB2E38081E6BB91E58AA8E9AA8CE8AF81E7A081E38081E7ACACE4B889E696B9E8AEA4E8AF81E799BBE5BD95E38081E58886E5B883E5BC8FE4BA8BE58AA1E380813C2F7370616E3E3C666F6E7420636F6C6F723D2223333333333333223EE58886E5B883E5BC8FE69687E4BBB6E5AD98E582A83C2F666F6E743E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE38081E58886E5BA93E58886E8A1A8E5A484E79086E7AD89E68A80E69CAFE789B9E782B9E380823C2F7370616E3E3C2F703E3C703E3C696D67207372633D2268747470733A2F2F666F727564612E67697465652E636F6D2F696D616765732F313730353033303538333937373430313635312F35656435646236615F313135313030342E706E6722207374796C653D2277696474683A20363470783B223E3C62723E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A20726762283233302C20302C2030293B223EE5AE98E7BD91E58F8AE6BC94E7A4BA3C2F7370616E3E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE88BA5E4BE9DE5AE98E7BD91E59CB0E59D80EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F72756F79692E7669703C2F613E3C6120687265663D22687474703A2F2F72756F79692E76697022207461726765743D225F626C616E6B223E3C2F613E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE88BA5E4BE9DE69687E6A1A3E59CB0E59D80EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F646F632E72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F646F632E72756F79692E7669703C2F613E3C62723E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE6BC94E7A4BAE59CB0E59D80E38090E4B88DE58886E7A6BBE78988E38091EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F64656D6F2E72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F64656D6F2E72756F79692E7669703C2F613E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE6BC94E7A4BAE59CB0E59D80E38090E58886E7A6BBE78988E69CACE38091EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F7675652E72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F7675652E72756F79692E7669703C2F613E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE6BC94E7A4BAE59CB0E59D80E38090E5BEAEE69C8DE58AA1E78988E38091EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F636C6F75642E72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F636C6F75642E72756F79692E7669703C2F613E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B223EE6BC94E7A4BAE59CB0E59D80E38090E7A7BBE58AA8E7ABAFE78988E38091EFBC9A266E6273703B3C2F7370616E3E3C6120687265663D22687474703A2F2F68352E72756F79692E76697022207461726765743D225F626C616E6B223E687474703A2F2F68352E72756F79692E7669703C2F613E3C2F703E3C703E3C6272207374796C653D22636F6C6F723A207267622834382C2034392C203531293B20666F6E742D66616D696C793A202671756F743B48656C766574696361204E6575652671756F743B2C2048656C7665746963612C20417269616C2C2073616E732D73657269663B20666F6E742D73697A653A20313270783B223E3C2F703E, '0', 'admin', '2026-09-03 16:41:17', '', NULL, '管理员');
+INSERT INTO `sys_notice` VALUES (3, '意象开源框架介绍', '1', 0x3C6832207374796C653D22666F6E742D66616D696C793A202671756F743B6F70656E2073616E732671756F743B2C202671756F743B48656C766574696361204E6575652671756F743B2C2048656C7665746963612C20417269616C2C2073616E732D73657269663B20636F6C6F723A20726762283130332C203130362C20313038293B206D617267696E2D746F703A20313070783B20666F6E742D73697A653A20323670783B223E5973686F7041646D696E202F20E6848FE8B1A1E5908EE58FB0E7AEA1E79086E6A186E69EB63C2F68323E3C703E5468696E6B504850382B70687038E78988E69CACE38082E58FAFE794A8E4BA8EE7BD91E7AB99E7AEA1E79086E5908EE58FB0E38081434D53E3808143524DE380814F4120E7AD89E59CBAE699AFE380823C2F703E, '0', 'admin', '2026-09-03 16:41:17', 'admin', '2026-09-06 10:32:40', '');
+INSERT INTO `sys_notice` VALUES (10, '666', '1', 0x36363636, '0', 'admin', '2026-09-06 08:15:08', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice_read
@@ -517,12 +542,21 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type`) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status`) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
 INSERT INTO `sys_oper_log` VALUES (100, '角色管理', 0, 'system.Role/add', 'POST', 1, 'admin', '', '/system/role/add', '127.0.0.1', '', '{\"menuIds\":\"1,100,1000,1001,1002,1003,1004,1005,1006\",\"roleName\":\"新角色\",\"roleKey\":\"newrole\",\"roleSort\":\"0\",\"status\":\"0\",\"remark\":\"\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-04 23:18:17', 145);
+INSERT INTO `sys_oper_log` VALUES (101, '导入表', 0, 'tool.Gen/importTable', 'POST', 1, 'admin', '', '/tool/gen/importTable', '127.0.0.1', '', '{\"tables\":\"sys_role\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-05 23:30:42', 116);
+INSERT INTO `sys_oper_log` VALUES (102, '用户管理', 0, 'system.User/add', 'POST', 1, 'admin', '', '/system/user/add', '127.0.0.1', '', '{\"deptId\":\"103\",\"userName\":\"yshop\",\"deptName\":\"研发部门\",\"phonenumber\":\"15888888888\",\"email\":\"yshop@qq.com\",\"loginName\":\"yshop\",\"password\":\"123456\",\"sex\":\"0\",\"role\":\"100\",\"remark\":\"\",\"status\":\"0\",\"roleIds\":\"100\",\"postIds\":\"\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 07:46:45', 80);
+INSERT INTO `sys_oper_log` VALUES (103, '部门管理', 0, 'system.Dept/add', 'POST', 1, 'admin', '', '/system/dept/add', '127.0.0.1', '', '{\"parentId\":\"103\",\"deptName\":\"全工程师\",\"orderNum\":\"0\",\"leader\":\"yshop先生\",\"phone\":\"\",\"email\":\"\",\"status\":\"0\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 08:13:44', 61);
+INSERT INTO `sys_oper_log` VALUES (104, '岗位管理', 0, 'system.Post/add', 'POST', 1, 'admin', '', '/system/post/add', '127.0.0.1', '', '{\"postName\":\"JavA\",\"postCode\":\"JAVA 100\",\"postSort\":\"11\",\"status\":\"0\",\"remark\":\"\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 08:14:35', 51);
+INSERT INTO `sys_oper_log` VALUES (105, '通知公告', 0, 'system.Notice/add', 'POST', 1, 'admin', '', '/system/notice/add', '127.0.0.1', '', '{\"noticeTitle\":\"666\",\"noticeType\":\"1\",\"status\":\"0\",\"noticeContent\":\"6666\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 08:15:08', 55);
+INSERT INTO `sys_oper_log` VALUES (106, '通知公告', 0, 'system.Notice/edit', 'POST', 1, 'admin', '', '/system/notice/edit', '127.0.0.1', '', '{\"noticeId\":\"3\",\"noticeTitle\":\"意象开源框架介绍\",\"noticeType\":\"1\",\"status\":\"0\",\"noticeContent\":\"<h2 style=\\\"font-family: &quot;open sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(103, 106, 108); margin-top: 10px; font-size: 26px;\\\">YshopAdmin \\/ 意象后台管理框架<\\/h2><p>ThinkPHP8+php8版本。可用于网站管理后台、CMS、CRM、OA 等场景。<\\/p>\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 10:32:40', 78);
+INSERT INTO `sys_oper_log` VALUES (107, '参数设置', 0, 'system.Config/add', 'POST', 1, 'admin', '', '/system/config/add', '127.0.0.1', '', '{\"configName\":\"演示模式开启\",\"configKey\":\"sys.demo.enabled\",\"configValue\":\"true\",\"configType\":\"Y\",\"remark\":\"\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 15:46:34', 97);
+INSERT INTO `sys_oper_log` VALUES (108, '通知公告', 0, 'system.Notice/edit', 'POST', 1, 'admin', '', '/system/notice/edit', '127.0.0.1', '', '{\"noticeId\":\"10\",\"noticeTitle\":\"6667\",\"noticeType\":\"1\",\"status\":\"0\",\"noticeContent\":\"6666\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-06 15:56:05', 79);
+INSERT INTO `sys_oper_log` VALUES (109, '通知公告', 0, 'system.Notice/remove', 'POST', 1, 'admin', '', '/system/notice/remove', '127.0.0.1', '', '{\"ids\":\"1\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-06 15:56:16', 57);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -540,7 +574,7 @@ CREATE TABLE `sys_post`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_post
@@ -549,6 +583,7 @@ INSERT INTO `sys_post` VALUES (1, 'ceo', '董事长', 1, '0', 'admin', '2026-09-
 INSERT INTO `sys_post` VALUES (2, 'se', '项目经理', 2, '0', 'admin', '2026-09-03 16:41:16', '', NULL, '');
 INSERT INTO `sys_post` VALUES (3, 'hr', '人力资源', 3, '0', 'admin', '2026-09-03 16:41:16', '', NULL, '');
 INSERT INTO `sys_post` VALUES (4, 'user', '普通员工', 4, '0', 'admin', '2026-09-03 16:41:16', '', NULL, '');
+INSERT INTO `sys_post` VALUES (5, 'JAVA 100', 'JavA', 11, '0', 'admin', '2026-09-06 08:14:35', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -729,13 +764,14 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '意象', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2026-09-05 22:53:05', NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '意象', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2026-09-06 15:56:46', NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '意象', '00', 'ry@qq.com', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '0', '127.0.0.1', NULL, NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '测试员');
+INSERT INTO `sys_user` VALUES (100, 103, 'yshop', 'yshop', '00', 'yshop@qq.com', '15888888888', '0', '', '7c9911677d804336e2488079aa0f2ba4', '4c7f79', '0', '0', '127.0.0.1', '2026-09-06 10:20:12', '2026-09-06 07:46:45', 'admin', '2026-09-06 07:46:45', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_user_online
@@ -762,14 +798,16 @@ CREATE TABLE `sys_user_online`  (
 -- ----------------------------
 INSERT INTO `sys_user_online` VALUES ('0301b41c9fa7788ee586cfad6185a877', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 13:49:03', '2026-09-04 14:04:41', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('19a8e1c8b45d17e8e15804204f27031c', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 17:03:24', '2026-09-04 17:21:44', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('1ea523942efe1b3e45ad0b75462a576c', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-06 07:44:13', '2026-09-06 08:15:08', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('20420976d0dbc1d84cf8d4bd3f102e32', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:26:50', '2026-09-04 22:27:10', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('2a2757e596f8351b2dff2537b3592d9e', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:43:12', '2026-09-04 22:43:13', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('45d71768f3edf33cf98b9ba71186023f', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-06 10:20:29', '2026-09-06 10:33:18', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('c24b4fb8e1a8765c7a07244a08c08f4e', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:43:30', '2026-09-04 22:43:33', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('cbefdf7d40f537a2a549af3f0fb1dcf2', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:53:01', '2026-09-04 22:53:04', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('de53ace937d350a53dd443f75ada5067', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 23:16:13', '2026-09-04 23:48:34', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('e0cebef89d38c1005ade8cbea97973e3', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:39:44', '2026-09-04 22:39:48', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('e0ee0a8e5684e28207089a361bc7417c', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-05 17:27:48', '2026-09-05 17:35:55', 1440, NULL);
-INSERT INTO `sys_user_online` VALUES ('e3cd8ad67f1f451d26984515fef076a7', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-05 22:53:05', '2026-09-05 22:56:51', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('e3cd8ad67f1f451d26984515fef076a7', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-05 22:53:05', '2026-09-05 23:39:31', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('f36908743504244dc96a0411a6dfe6cb', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:35:42', '2026-09-04 22:35:42', 1440, NULL);
 
 -- ----------------------------
@@ -803,5 +841,6 @@ CREATE TABLE `sys_user_role`  (
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
 INSERT INTO `sys_user_role` VALUES (2, 2);
+INSERT INTO `sys_user_role` VALUES (100, 100);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -85,7 +85,7 @@ YshopAdmin/
 ├── route/app.php            # 全部 HTTP 路由与权限注解
 ├── view/                    # think-view 模板
 ├── runtime/                 # 缓存、日志、导出临时文件
-├── .env                     # 本地环境（勿提交密钥）
+├── .env                     # 本地环境
 └── README.md
 ```
 

@@ -24,8 +24,8 @@
 
 完整的环境要求、安装部署、账号说明与常见问题，请直接查看在线文档：
 
-- 在线文档：[/doc/](./public/doc/)（站点根目录指向 `public/` 后访问 `http://你的主机/doc/`）
-- 本地示例：`http://127.0.0.1:8088/doc/`
+- 在线文档：https://cms.yixiang.co/doc/
+
 
 建议从文档中的 **环境部署**、**快速了解** 开始。
 
@@ -101,6 +101,5 @@ YshopAdmin/
 
 ## 特别鸣谢
 
-- [RuoYi](http://www.ruoyi.vip/) — 经典后台交互与权限模型参考
 - [ThinkPHP](https://www.thinkphp.cn/) — PHP 应用框架
 - [PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet) — Excel 读写

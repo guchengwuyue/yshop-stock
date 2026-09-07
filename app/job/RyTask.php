@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace app\job;
+use think\facade\Log;
 
 /**
  * Whitelisted sample job targets (RuoYi ryTask.*).
@@ -11,6 +12,8 @@ class RyTask
     public function ryNoParams(): void
     {
         // no-op sample
+        //打印一个日志测试
+        Log::info('yshop test');
     }
 
     public function ryParams(string $param = ''): void

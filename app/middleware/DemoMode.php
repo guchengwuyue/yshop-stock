@@ -17,8 +17,12 @@ class DemoMode
      */
     public function handle(Request $request, \Closure $next)
     {
-        $enabled = (new ConfigService())->getKey('sys.demo.enabled', 'false') === 'true';
-        if (!$enabled) {
+        //$enabled = (new ConfigService())->getKey('sys.demo.enabled', 'false') === 'true';
+        //echo 'enabled: ' . (new ConfigService())->getKey('sys.demo.enabled', 'false');
+        $enabled = env('APP_DEBUG', false);
+        //echo 'enabled: ' . $enabled;
+        //die;
+        if ($enabled) {
             return $next($request);
         }
 

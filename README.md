@@ -20,6 +20,29 @@
 如果对你有帮助，欢迎 Star 收藏，谢谢！
 ```
 
+## 演示地址
+
+- 在线演示：https://cms.yixiang.co/
+- 账号：`admin` / 密码：`admin123`
+
+### 演示效果
+
+![登录页](./docs/images/demo-login.png)
+
+![首页](./docs/images/demo-home.png)
+
+![用户管理](./docs/images/demo-user.png)
+
+![菜单管理](./docs/images/demo-menu.png)
+
+![角色管理](./docs/images/demo-role.png)
+
+![定时任务](./docs/images/demo-job.png)
+
+![表单构建](./docs/images/demo-form.png)
+
+![代码生成](./docs/images/demo-codegen.png)
+
 ## 快速开始
 
 完整的环境要求、安装部署、账号说明与常见问题，请直接查看在线文档：

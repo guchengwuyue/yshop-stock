@@ -123,6 +123,6 @@ YshopAdmin/
 5. 结构清晰，便于二次开发与模块扩展
 
 ## 特别鸣谢
-
+- [ruoyi](https://github.com/yangzongzhuan/RuoYi) — 若依系统
 - [ThinkPHP](https://www.thinkphp.cn/) — PHP 应用框架
 - [PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet) — Excel 读写

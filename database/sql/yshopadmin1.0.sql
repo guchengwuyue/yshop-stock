@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50726 (5.7.26)
  Source Host           : localhost:3306
- Source Schema         : yshopadmin
+ Source Schema         : yshopadmin1.0
 
  Target Server Type    : MySQL
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 06/09/2026 16:34:45
+ Date: 09/09/2026 10:03:05
 */
 
 SET NAMES utf8mb4;
@@ -98,6 +98,31 @@ INSERT INTO `gen_table_column` VALUES (11, 1, 'update_time', '更新时间', 'da
 INSERT INTO `gen_table_column` VALUES (12, 1, 'remark', '备注', 'varchar(500)', 'string', 'remark', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'input', '', 12, 'admin', '2026-09-05 23:30:42', '', NULL);
 
 -- ----------------------------
+-- Table structure for sys_addon
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_addon`;
+CREATE TABLE `sys_addon`  (
+  `addon_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '插件ID',
+  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '插件标识',
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '插件名称',
+  `version` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '版本',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '描述',
+  `author` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '作者',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '状态（0停用 1启用）',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '配置JSON快照',
+  `install_time` datetime NULL DEFAULT NULL COMMENT '安装时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`addon_id`) USING BTREE,
+  UNIQUE INDEX `uk_name`(`name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '插件注册表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_addon
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_config
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
@@ -129,7 +154,7 @@ INSERT INTO `sys_config` VALUES (8, '主框架页-菜单导航显示风格', 'sy
 INSERT INTO `sys_config` VALUES (9, '主框架页-是否开启页脚', 'sys.index.footer', 'true', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '是否开启底部页脚显示（true显示，false隐藏）');
 INSERT INTO `sys_config` VALUES (10, '主框架页-是否开启页签', 'sys.index.tagsView', 'true', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '是否开启菜单多页签显示（true显示，false隐藏）');
 INSERT INTO `sys_config` VALUES (11, '用户登录-黑名单列表', 'sys.login.blackIPList', '', 'Y', 'admin', '2026-09-03 16:41:16', '', NULL, '设置登录IP黑名单限制，多个匹配项以;分隔，支持匹配（*通配、网段）');
-INSERT INTO `sys_config` VALUES (100, '演示模式开启', 'sys.demo.enabled', 'true', 'Y', 'admin', '2026-09-06 15:46:34', '', NULL, '');
+INSERT INTO `sys_config` VALUES (100, '演示模式开启', 'sys.demo.enabled', 'false', 'Y', 'admin', '2026-09-06 15:46:34', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -279,7 +304,7 @@ CREATE TABLE `sys_job`  (
 -- ----------------------------
 -- Records of sys_job
 -- ----------------------------
-INSERT INTO `sys_job` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', '2026-09-03 16:41:17', '', NULL, '');
+INSERT INTO `sys_job` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', '2026-09-03 16:41:17', 'admin', '2026-09-07 10:15:02', '');
 INSERT INTO `sys_job` VALUES (2, '系统默认（有参）', 'DEFAULT', 'ryTask.ryParams(\'ry\')', '0/15 * * * * ?', '3', '1', '1', 'admin', '2026-09-03 16:41:17', '', NULL, '');
 INSERT INTO `sys_job` VALUES (3, '系统默认（多参）', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)', '0/20 * * * * ?', '3', '1', '1', 'admin', '2026-09-03 16:41:17', '', NULL, '');
 
@@ -299,12 +324,15 @@ CREATE TABLE `sys_job_log`  (
   `end_time` datetime NULL DEFAULT NULL COMMENT '执行结束时间',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job_log
 -- ----------------------------
 INSERT INTO `sys_job_log` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', 'success', '0', '', '2026-09-04 13:41:22', '2026-09-04 13:41:22', '2026-09-04 13:41:22');
+INSERT INTO `sys_job_log` VALUES (2, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '[manual] success', '0', '', '2026-09-07 10:09:01', '2026-09-07 10:09:01', '2026-09-07 10:09:01');
+INSERT INTO `sys_job_log` VALUES (3, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '[manual] failed', '1', 'Class \"app\\job\\Log\" not found', '2026-09-07 10:10:04', '2026-09-07 10:10:04', '2026-09-07 10:10:04');
+INSERT INTO `sys_job_log` VALUES (4, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '[manual] success', '0', '', '2026-09-07 10:14:04', '2026-09-07 10:14:04', '2026-09-07 10:14:04');
 
 -- ----------------------------
 -- Table structure for sys_logininfor
@@ -323,7 +351,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status`) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 138 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -359,6 +387,13 @@ INSERT INTO `sys_logininfor` VALUES (127, 'admin', '127.0.0.1', '', 'Chrome', 'W
 INSERT INTO `sys_logininfor` VALUES (128, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 15:56:40');
 INSERT INTO `sys_logininfor` VALUES (129, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-06 15:56:46');
 INSERT INTO `sys_logininfor` VALUES (130, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-06 16:03:21');
+INSERT INTO `sys_logininfor` VALUES (131, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-07 09:53:21');
+INSERT INTO `sys_logininfor` VALUES (132, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'logout', '2026-09-07 09:57:18');
+INSERT INTO `sys_logininfor` VALUES (133, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-07 09:57:22');
+INSERT INTO `sys_logininfor` VALUES (134, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-07 16:53:39');
+INSERT INTO `sys_logininfor` VALUES (135, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-08 22:38:23');
+INSERT INTO `sys_logininfor` VALUES (136, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-09 07:10:45');
+INSERT INTO `sys_logininfor` VALUES (137, 'admin', '127.0.0.1', '', 'Chrome', 'Windows 10', '1', 'login success', '2026-09-09 08:05:33');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -382,7 +417,7 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2035 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -390,7 +425,7 @@ CREATE TABLE `sys_menu`  (
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, '#', '', 'M', '0', '1', '', 'fa fa-gear', 'admin', '2026-09-03 16:41:16', '', NULL, '系统管理目录');
 INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, '#', '', 'M', '0', '1', '', 'fa fa-video-camera', 'admin', '2026-09-03 16:41:16', '', NULL, '系统监控目录');
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, '#', '', 'M', '0', '1', '', 'fa fa-bars', 'admin', '2026-09-03 16:41:16', '', NULL, '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, '意象官网', 0, 4, 'https://www.yixiang.co', 'menuBlank', 'C', '0', '1', '', 'fa fa-location-arrow', 'admin', '2026-09-03 16:41:16', '', NULL, '意象官网地址');
+INSERT INTO `sys_menu` VALUES (4, '意象官网', 0, 99, 'https://www.yixiang.co', 'menuBlank', 'C', '0', '1', '', 'fa fa-location-arrow', 'admin', '2026-09-03 16:41:16', 'admin', '2026-09-08 22:43:42', '意象官网地址');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, '/system/user', '', 'C', '0', '1', 'system:user:view', 'fa fa-user-o', 'admin', '2026-09-03 16:41:16', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, '/system/role', '', 'C', '0', '1', 'system:role:view', 'fa fa-user-secret', 'admin', '2026-09-03 16:41:16', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, '/system/menu', '', 'C', '0', '1', 'system:menu:view', 'fa fa-th-list', 'admin', '2026-09-03 16:41:16', '', NULL, '菜单管理菜单');
@@ -472,6 +507,12 @@ INSERT INTO `sys_menu` VALUES (1058, '生成修改', 115, 2, '#', '', 'F', '0', 
 INSERT INTO `sys_menu` VALUES (1059, '生成删除', 115, 3, '#', '', 'F', '0', '1', 'tool:gen:remove', '#', 'admin', '2026-09-03 16:41:16', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1060, '预览代码', 115, 4, '#', '', 'F', '0', '1', 'tool:gen:preview', '#', 'admin', '2026-09-03 16:41:16', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1061, '生成代码', 115, 5, '#', '', 'F', '0', '1', 'tool:gen:code', '#', 'admin', '2026-09-03 16:41:16', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2000, '插件管理', 0, 10, '/system/addon', 'menuItem', 'M', '0', '1', 'system:addon:view', 'fa fa-puzzle-piece', 'admin', '2026-09-08 22:38:06', 'admin', '2026-09-08 22:48:50', '插件管理菜单');
+INSERT INTO `sys_menu` VALUES (2001, '插件查询', 2000, 1, '#', '', 'F', '0', '1', 'system:addon:list', '#', 'admin', '2026-09-08 22:38:06', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2002, '插件安装', 2000, 2, '#', '', 'F', '0', '1', 'system:addon:install', '#', 'admin', '2026-09-08 22:38:06', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2003, '插件卸载', 2000, 3, '#', '', 'F', '0', '1', 'system:addon:uninstall', '#', 'admin', '2026-09-08 22:38:06', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2004, '插件启停', 2000, 4, '#', '', 'F', '0', '1', 'system:addon:edit', '#', 'admin', '2026-09-08 22:38:06', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2005, '插件配置', 2000, 5, '#', '', 'F', '0', '1', 'system:addon:config', '#', 'admin', '2026-09-08 22:38:06', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -542,7 +583,7 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type`) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status`) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -557,6 +598,44 @@ INSERT INTO `sys_oper_log` VALUES (106, '通知公告', 0, 'system.Notice/edit',
 INSERT INTO `sys_oper_log` VALUES (107, '参数设置', 0, 'system.Config/add', 'POST', 1, 'admin', '', '/system/config/add', '127.0.0.1', '', '{\"configName\":\"演示模式开启\",\"configKey\":\"sys.demo.enabled\",\"configValue\":\"true\",\"configType\":\"Y\",\"remark\":\"\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-06 15:46:34', 97);
 INSERT INTO `sys_oper_log` VALUES (108, '通知公告', 0, 'system.Notice/edit', 'POST', 1, 'admin', '', '/system/notice/edit', '127.0.0.1', '', '{\"noticeId\":\"10\",\"noticeTitle\":\"6667\",\"noticeType\":\"1\",\"status\":\"0\",\"noticeContent\":\"6666\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-06 15:56:05', 79);
 INSERT INTO `sys_oper_log` VALUES (109, '通知公告', 0, 'system.Notice/remove', 'POST', 1, 'admin', '', '/system/notice/remove', '127.0.0.1', '', '{\"ids\":\"1\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-06 15:56:16', 57);
+INSERT INTO `sys_oper_log` VALUES (110, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:54:59', 69);
+INSERT INTO `sys_oper_log` VALUES (111, '参数设置', 0, 'system.Config/edit', 'POST', 1, 'admin', '', '/system/config/edit', '127.0.0.1', '', '{\"configId\":\"100\",\"configName\":\"演示模式开启\",\"configKey\":\"sys.demo.enabled\",\"configValue\":\"false\",\"configType\":\"Y\",\"remark\":\"\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:55:24', 70);
+INSERT INTO `sys_oper_log` VALUES (112, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:56:42', 61);
+INSERT INTO `sys_oper_log` VALUES (113, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:56:54', 54);
+INSERT INTO `sys_oper_log` VALUES (114, '执行任务', 0, 'monitor.Job/run', 'POST', 1, 'admin', '', '/monitor/job/run', '127.0.0.1', '', '{\"jobId\":\"1\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:57:14', 50);
+INSERT INTO `sys_oper_log` VALUES (115, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:57:28', 45);
+INSERT INTO `sys_oper_log` VALUES (116, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 09:58:02', 53);
+INSERT INTO `sys_oper_log` VALUES (117, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":500,\"msg\":\"演示环境模式禁止操作\"}', 1, '演示环境模式禁止操作', '2026-09-07 10:00:06', 65);
+INSERT INTO `sys_oper_log` VALUES (118, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"0\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-07 10:07:37', 72);
+INSERT INTO `sys_oper_log` VALUES (119, '执行任务', 0, 'monitor.Job/run', 'POST', 1, 'admin', '', '/monitor/job/run', '127.0.0.1', '', '{\"jobId\":\"1\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-07 10:09:01', 89);
+INSERT INTO `sys_oper_log` VALUES (120, '执行任务', 0, 'monitor.Job/run', 'POST', 1, 'admin', '', '/monitor/job/run', '127.0.0.1', '', '{\"jobId\":\"1\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-07 10:10:04', 68);
+INSERT INTO `sys_oper_log` VALUES (121, '执行任务', 0, 'monitor.Job/run', 'POST', 1, 'admin', '', '/monitor/job/run', '127.0.0.1', '', '{\"jobId\":\"1\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-07 10:14:04', 100);
+INSERT INTO `sys_oper_log` VALUES (122, '任务状态', 0, 'monitor.Job/changeStatus', 'POST', 1, 'admin', '', '/monitor/job/changeStatus', '127.0.0.1', '', '{\"jobId\":\"1\",\"status\":\"1\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-07 10:15:02', 57);
+INSERT INTO `sys_oper_log` VALUES (123, '菜单管理', 0, 'system.Menu/edit', 'POST', 1, 'admin', '', '/system/menu/edit', '127.0.0.1', '', '{\"menuId\":\"4\",\"parentId\":\"0\",\"menuType\":\"C\",\"menuName\":\"意象官网\",\"orderNum\":\"99\",\"url\":\"https:\\/\\/www.yixiang.co\",\"target\":\"menuBlank\",\"perms\":\"\",\"icon\":\"fa fa-location-arrow\",\"visible\":\"0\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 22:43:42', 53);
+INSERT INTO `sys_oper_log` VALUES (124, '菜单管理', 0, 'system.Menu/edit', 'POST', 1, 'admin', '', '/system/menu/edit', '127.0.0.1', '', '{\"menuId\":\"2000\",\"parentId\":\"0\",\"menuType\":\"M\",\"menuName\":\"插件管理\",\"orderNum\":\"10\",\"url\":\"\\/system\\/addon\",\"target\":\"menuItem\",\"perms\":\"system:addon:view\",\"icon\":\"fa fa-puzzle-piece\",\"visible\":\"0\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 22:48:51', 57);
+INSERT INTO `sys_oper_log` VALUES (125, '插件安装', 0, 'system.Addon/install', 'POST', 1, 'admin', '', '/system/addon/install', '127.0.0.1', '', '{\"name\":\"addondev\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 22:51:05', 114);
+INSERT INTO `sys_oper_log` VALUES (126, '插件启用', 0, 'system.Addon/enable', 'POST', 1, 'admin', '', '/system/addon/enable', '127.0.0.1', '', '{\"name\":\"addondev\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:04:35', 25);
+INSERT INTO `sys_oper_log` VALUES (127, '插件禁用', 0, 'system.Addon/disable', 'POST', 1, 'admin', '', '/system/addon/disable', '127.0.0.1', '', '{\"name\":\"addondev\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:37:26', 33);
+INSERT INTO `sys_oper_log` VALUES (128, '插件卸载', 0, 'system.Addon/uninstall', 'POST', 1, 'admin', '', '/system/addon/uninstall', '127.0.0.1', '', '{\"name\":\"addondev\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:37:29', 41);
+INSERT INTO `sys_oper_log` VALUES (129, '插件安装', 0, 'system.Addon/install', 'POST', 1, 'admin', '', '/system/addon/install', '127.0.0.1', '', '{\"name\":\"addondev\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:41:48', 70);
+INSERT INTO `sys_oper_log` VALUES (130, '插件安装', 0, 'system.Addon/install', 'POST', 1, 'admin', '', '/system/addon/install', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:42:16', 52);
+INSERT INTO `sys_oper_log` VALUES (131, '插件打包', 0, 'Addons/package', 'POST', 1, 'admin', '', '/addondev/addons/package/yspay', '127.0.0.1', '', '{\"version\":\"1.0.1\"}', '{\"code\":0,\"msg\":\"打包成功\",\"data\":{\"path\":\"D:\\\\web\\\\www\\\\yshopplugin\\\\YshopAdmin\\\\runtime\\\\addons\\\\yspay-1.0.1.zip\"}}', 0, '', '2026-09-08 23:44:12', 62);
+INSERT INTO `sys_oper_log` VALUES (132, '插件打包', 0, 'Addons/package', 'POST', 1, 'admin', '', '/addondev/addons/package/yspay', '127.0.0.1', '', '{\"version\":\"1.0.1\"}', '{\"code\":0,\"msg\":\"打包成功\",\"data\":{\"path\":\"D:\\\\web\\\\www\\\\yshopplugin\\\\YshopAdmin\\\\runtime\\\\addons\\\\yspay-1.0.1.zip\"}}', 0, '', '2026-09-08 23:45:20', 59);
+INSERT INTO `sys_oper_log` VALUES (133, '插件禁用', 0, 'system.Addon/disable', 'POST', 1, 'admin', '', '/system/addon/disable', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:48:20', 35);
+INSERT INTO `sys_oper_log` VALUES (134, '插件卸载', 0, 'system.Addon/uninstall', 'POST', 1, 'admin', '', '/system/addon/uninstall', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:48:27', 33);
+INSERT INTO `sys_oper_log` VALUES (135, '插件安装', 0, 'system.Addon/install', 'POST', 1, 'admin', '', '/system/addon/install', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-08 23:48:54', 51);
+INSERT INTO `sys_oper_log` VALUES (136, '插件打包', 0, 'Addons/package', 'POST', 1, 'admin', '', '/addondev/addons/package/yspay', '127.0.0.1', '', '{\"version\":\"1.0.2\"}', '{\"code\":0,\"msg\":\"打包成功\",\"data\":{\"path\":\"D:\\\\web\\\\www\\\\yshopplugin\\\\YshopAdmin\\\\runtime\\\\addons\\\\yspay-1.0.2.zip\"}}', 0, '', '2026-09-08 23:49:26', 53);
+INSERT INTO `sys_oper_log` VALUES (137, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"???????????: yspay\"}', 1, '???????????: yspay', '2026-09-09 07:11:03', 316);
+INSERT INTO `sys_oper_log` VALUES (138, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"插件目录已存在: yspay\"}', 1, '插件目录已存在: yspay', '2026-09-09 08:05:48', 702);
+INSERT INTO `sys_oper_log` VALUES (139, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"插件目录已存在: yspay\"}', 1, '插件目录已存在: yspay', '2026-09-09 08:22:57', 257);
+INSERT INTO `sys_oper_log` VALUES (140, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"插件目录已存在: yspay\"}', 1, '插件目录已存在: yspay', '2026-09-09 08:23:54', 783);
+INSERT INTO `sys_oper_log` VALUES (141, '插件禁用', 0, 'system.Addon/disable', 'POST', 1, 'admin', '', '/system/addon/disable', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-09 08:25:27', 23);
+INSERT INTO `sys_oper_log` VALUES (142, '插件卸载', 0, 'system.Addon/uninstall', 'POST', 1, 'admin', '', '/system/addon/uninstall', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-09 08:25:32', 48);
+INSERT INTO `sys_oper_log` VALUES (143, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"插件目录已存在: yspay\"}', 1, '插件目录已存在: yspay', '2026-09-09 08:26:05', 166);
+INSERT INTO `sys_oper_log` VALUES (144, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":500,\"msg\":\"插件目录已存在: yspay\"}', 1, '插件目录已存在: yspay', '2026-09-09 08:55:55', 189);
+INSERT INTO `sys_oper_log` VALUES (145, '本地安装插件', 0, 'system.Addon/upload', 'POST', 1, 'admin', '', '/system/addon/upload', '127.0.0.1', '', '[]', '{\"code\":0,\"msg\":\"安装成功: yspay\"}', 0, '', '2026-09-09 09:19:04', 258);
+INSERT INTO `sys_oper_log` VALUES (146, '插件禁用', 0, 'system.Addon/disable', 'POST', 1, 'admin', '', '/system/addon/disable', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-09 09:48:38', 30);
+INSERT INTO `sys_oper_log` VALUES (147, '插件卸载', 0, 'system.Addon/uninstall', 'POST', 1, 'admin', '', '/system/addon/uninstall', '127.0.0.1', '', '{\"name\":\"yspay\"}', '{\"code\":0,\"msg\":\"操作成功\"}', 0, '', '2026-09-09 09:48:41', 45);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -769,7 +848,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '意象', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2026-09-06 15:56:46', NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '意象', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2026-09-09 08:05:32', NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '意象', '00', 'ry@qq.com', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '0', '127.0.0.1', NULL, NULL, 'admin', '2026-09-03 16:41:16', '', NULL, '测试员');
 INSERT INTO `sys_user` VALUES (100, 103, 'yshop', 'yshop', '00', 'yshop@qq.com', '15888888888', '0', '', '7c9911677d804336e2488079aa0f2ba4', '4c7f79', '0', '0', '127.0.0.1', '2026-09-06 10:20:12', '2026-09-06 07:46:45', 'admin', '2026-09-06 07:46:45', '', NULL, '');
 
@@ -801,9 +880,14 @@ INSERT INTO `sys_user_online` VALUES ('19a8e1c8b45d17e8e15804204f27031c', 'admin
 INSERT INTO `sys_user_online` VALUES ('1ea523942efe1b3e45ad0b75462a576c', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-06 07:44:13', '2026-09-06 08:15:08', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('20420976d0dbc1d84cf8d4bd3f102e32', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:26:50', '2026-09-04 22:27:10', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('2a2757e596f8351b2dff2537b3592d9e', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:43:12', '2026-09-04 22:43:13', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('4040c97c2d4abb3e9c18751bd598418a', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-07 09:57:22', '2026-09-07 10:15:02', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('45d71768f3edf33cf98b9ba71186023f', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-06 10:20:29', '2026-09-06 10:33:18', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('478fbc901c5715d2c1b4581be8535d8d', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-09 07:10:45', '2026-09-09 07:11:02', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('513693e9fc7f85b72f7265a04cbf67fc', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-08 22:38:23', '2026-09-08 23:49:34', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('a2454882b8f3adb56013155572200d44', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-09 08:05:32', '2026-09-09 09:51:33', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('c24b4fb8e1a8765c7a07244a08c08f4e', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:43:30', '2026-09-04 22:43:33', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('cbefdf7d40f537a2a549af3f0fb1dcf2', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:53:01', '2026-09-04 22:53:04', 1440, NULL);
+INSERT INTO `sys_user_online` VALUES ('da4edaab55ef018195e93cf666476287', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-07 16:53:39', '2026-09-07 16:54:14', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('de53ace937d350a53dd443f75ada5067', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 23:16:13', '2026-09-04 23:48:34', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('e0cebef89d38c1005ade8cbea97973e3', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-04 22:39:44', '2026-09-04 22:39:48', 1440, NULL);
 INSERT INTO `sys_user_online` VALUES ('e0ee0a8e5684e28207089a361bc7417c', 'admin', '研发部门', '127.0.0.1', '', 'Chrome', 'Windows 10', 'on_line', '2026-09-05 17:27:48', '2026-09-05 17:35:55', 1440, NULL);

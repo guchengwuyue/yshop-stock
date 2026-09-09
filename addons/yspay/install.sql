@@ -1,0 +1,1 @@
+-- yspay has no business tables

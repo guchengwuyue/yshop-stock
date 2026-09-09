@@ -1,4 +1,5 @@
 <?php
+use app\common\addon\AddonManager;
 use think\facade\Route;
 
 // 公开路由
@@ -57,6 +58,9 @@ Route::group(function () {
     Route::post('system/menu/edit', 'system.Menu/edit')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:menu:edit', 'title' => '菜单管理']);
     Route::post('system/menu/remove/:id', 'system.Menu/remove')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:menu:remove', 'title' => '菜单管理']);
     Route::get('system/menu/treeData', 'system.Menu/treeData');
+    Route::get('system/menu/treeData/:excludeId', 'system.Menu/treeData');
+    Route::get('system/menu/selectMenuTree/:menuId/:excludeId', 'system.Menu/selectMenuTree');
+    Route::get('system/menu/selectMenuTree/:menuId', 'system.Menu/selectMenuTree');
 
     // 部门
     Route::get('system/dept', 'system.Dept/index')->middleware(\app\middleware\Permission::class)->option(['perms' => 'system:dept:view']);
@@ -78,6 +82,19 @@ Route::group(function () {
     Route::get('system/post/edit/:id', 'system.Post/edit')->middleware(\app\middleware\Permission::class)->option(['perms' => 'system:post:edit']);
     Route::post('system/post/edit', 'system.Post/edit')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:post:edit', 'title' => '岗位管理']);
     Route::post('system/post/remove', 'system.Post/remove')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:post:remove', 'title' => '岗位管理']);
+
+    // 插件管理
+    Route::get('system/addon', 'system.Addon/index')->middleware(\app\middleware\Permission::class)->option(['perms' => 'system:addon:view']);
+    Route::post('system/addon/list', 'system.Addon/list')->middleware(\app\middleware\Permission::class)->option(['perms' => 'system:addon:list']);
+    Route::post('system/addon/install', 'system.Addon/install')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:install', 'title' => '插件安装']);
+    Route::post('system/addon/uninstall', 'system.Addon/uninstall')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:uninstall', 'title' => '插件卸载']);
+    Route::post('system/addon/enable', 'system.Addon/enable')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:edit', 'title' => '插件启用']);
+    Route::post('system/addon/disable', 'system.Addon/disable')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:edit', 'title' => '插件禁用']);
+    Route::post('system/addon/upload', 'system.Addon/upload')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:install', 'title' => '本地安装插件']);
+    Route::rule('system/addon/config/:name', 'system.Addon/config', 'GET|POST')->middleware([\app\middleware\Permission::class, \app\middleware\OperLog::class])->option(['perms' => 'system:addon:config', 'title' => '插件配置']);
+
+    // 已启用插件需登录路由
+    AddonManager::instance()->mergeAuthRoutes();
 
     // 字典类型
     Route::get('system/dict', 'system.Dict/index')->middleware(\app\middleware\Permission::class)->option(['perms' => 'system:dict:view']);
@@ -200,4 +217,7 @@ Route::group(function () {
     \app\middleware\AuthCheck::class,
     \app\middleware\DemoMode::class,
 ]);
+
+// 已启用插件公开路由 + 静态资源
+AddonManager::instance()->mergePublicRoutes();
 

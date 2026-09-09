@@ -76,7 +76,7 @@ class Menu extends BaseController
         }
         return View::fetch('menu/edit', [
             'menu' => $menu,
-            'parent' => $parent ?: ['menuId' => 0, 'menuName' => '?????'],
+            'parent' => $parent ?: ['menuId' => 0, 'menuName' => '主目录'],
         ]);
     }
 
@@ -95,10 +95,29 @@ class Menu extends BaseController
     }
 
     /**
-     * 菜单树数据
+     * 菜单树数据（ztree）
+     * @param int $excludeId 排除的菜单 ID（含其下级）
      */
-    public function treeData()
+    public function treeData($excludeId = 0)
     {
-        return json($this->menuService->menuTreeData());
+        return json($this->menuService->menuTreeData((int) $excludeId));
+    }
+
+    /**
+     * 选择上级菜单树
+     */
+    public function selectMenuTree($menuId = 0, $excludeId = 0)
+    {
+        $menuId = (int) $menuId;
+        $excludeId = (int) $excludeId;
+        $menu = $menuId > 0 ? $this->menuService->get($menuId) : null;
+        if (!$menu) {
+            $menu = ['menuId' => $menuId, 'menuName' => $menuId === 0 ? '主目录' : ''];
+        }
+        return View::fetch('menu/tree', [
+            'menu'      => $menu,
+            'menuId'    => $menuId,
+            'excludeId' => $excludeId,
+        ]);
     }
 }

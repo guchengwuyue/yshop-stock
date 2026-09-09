@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>{include file="/common/header" title="支付配置" /}</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content">
+<form class="form-horizontal m" id="form-yspay-config">
+  {volist name="schema" id="item"}
+  <div class="form-group">
+    <label class="col-sm-3 control-label">{$item.title|default=$item.name}??</label>
+    <div class="col-sm-8">
+      {if isset($item.type) && $item.type == 'array'}
+      <textarea name="config[{$item.name}]" class="form-control" rows="10">{$item.valueText|default=''}</textarea>
+      {else}
+      <input name="config[{$item.name}]" class="form-control" value="{$item.valueText|default=''}"/>
+      {/if}
+      <span class="help-block m-b-none">{$item.tip|default=''}</span>
+    </div>
+  </div>
+  {/volist}
+  <div class="form-group">
+    <label class="col-sm-3 control-label">上传证书??</label>
+    <div class="col-sm-8">
+      <input type="file" id="certFile"/>
+      <a class="btn btn-default btn-sm" onclick="uploadCert()">上传证书</a>
+    </div>
+  </div>
+</form>
+</div>
+{include file="/common/footer" /}
+<script>
+function submitHandler(){
+  $.operate.save(ctx + "yspay/config", $("#form-yspay-config").serialize());
+}
+function uploadCert(){
+  var f = document.getElementById('certFile').files[0];
+  if(!f){ $.modal.msgError('请上传证书文件'); return; }
+  var fd = new FormData(); fd.append('file', f);
+  $.ajax({url: ctx + 'yspay/config/upload', type:'post', data:fd, processData:false, contentType:false,
+    success:function(res){ if(res.code===0){ $.modal.msgSuccess(res.msg); } else { $.modal.msgError(res.msg); } }
+  });
+}
+</script>
+</body></html>

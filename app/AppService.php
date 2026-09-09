@@ -1,8 +1,9 @@
 <?php
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace app;
 
+use app\common\addon\AddonManager;
 use think\Service;
 
 /**
@@ -17,6 +18,6 @@ class AppService extends Service
 
     public function boot()
     {
-        // 服务启动
+        AddonManager::instance()->boot();
     }
 }

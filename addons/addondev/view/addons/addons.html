@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>{include file="/common/header" title="插件开发" /}</head>
+<body class="gray-bg">
+<div class="container-div"><div class="row">
+<div class="col-sm-12 search-collapse">
+<form id="formId"><div class="select-list"><ul>
+<li>标识：<input type="text" name="name"/></li>
+<li><a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a></li>
+</ul></div></form>
+</div>
+<div class="btn-group-sm" id="toolbar" role="group">
+<a class="btn btn-success" onclick="$.operate.add()"><i class="fa fa-plus"></i> 新建</a>
+</div>
+<div class="col-sm-12 select-table table-striped"><table id="bootstrap-table"></table></div>
+</div></div>
+{include file="/common/footer" /}
+<script>
+var prefix = ctx + "addondev/addons";
+$(function(){
+  $.table.init({
+    url: prefix + "/list",
+    createUrl: prefix + "/add",
+    updateUrl: prefix + "/edit/{id}",
+    modalName: "插件开发",
+    columns: [
+      {field:"name", title:"标识"},
+      {field:"title", title:"名称"},
+      {field:"version", title:"版本"},
+      {field:"author", title:"作者"},
+      {field:"state", title:"状态", formatter:function(v){
+        return (v==="1"||v===1) ? '<span class="text-success">启用</span>' : '<span class="text-muted">停用</span>';
+      }},
+      {title:"操作", align:"center", formatter:function(v,row){
+        return '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="openEdit(\''+row.name+'\')"><i class="fa fa-edit"></i> 编辑</a> '+
+               '<a class="btn btn-warning btn-xs" href="javascript:void(0)" onclick="openPackage(\''+row.name+'\')"><i class="fa fa-file-zip-o"></i> 打包</a>';
+      }}
+    ]
+  });
+});
+function openEdit(name){ $.modal.open('编辑', prefix+'/edit/'+name); }
+function openPackage(name){ $.modal.open('打包', prefix+'/package/'+name); }
+</script>
+</body></html>

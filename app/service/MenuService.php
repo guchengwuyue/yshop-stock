@@ -137,14 +137,23 @@ class MenuService
 
     /**
      * 菜单树数据（ztree，含根节点）
+     * @param int $excludeId 排除的菜单 ID（含其下级，编辑上级时用）
      */
-    public function menuTreeData(): array
+    public function menuTreeData(int $excludeId = 0): array
     {
         $menus = Db::name('sys_menu')->order('parent_id, order_num')->select()->toArray();
-        $nodes = [['id' => 0, 'pId' => 0, 'name' => 'Root', 'title' => 'Root', 'open' => true]];
+        $excludeIds = [];
+        if ($excludeId > 0) {
+            $excludeIds = $this->collectMenuSelfAndChildren($menus, $excludeId);
+        }
+        $nodes = [['id' => 0, 'pId' => 0, 'name' => '主目录', 'title' => '主目录', 'open' => true]];
         foreach ($menus as $m) {
+            $id = (int) $m['menu_id'];
+            if (isset($excludeIds[$id])) {
+                continue;
+            }
             $nodes[] = [
-                'id'    => (int) $m['menu_id'],
+                'id'    => $id,
                 'pId'   => (int) $m['parent_id'],
                 'name'  => $m['menu_name'],
                 'title' => $m['menu_name'],
@@ -152,5 +161,27 @@ class MenuService
             ];
         }
         return $nodes;
+    }
+
+    /**
+     * 收集菜单自身及全部下级 ID
+     * @return array<int, true>
+     */
+    private function collectMenuSelfAndChildren(array $menus, int $menuId): array
+    {
+        $exclude = [$menuId => true];
+        $changed = true;
+        while ($changed) {
+            $changed = false;
+            foreach ($menus as $m) {
+                $id = (int) $m['menu_id'];
+                $pid = (int) $m['parent_id'];
+                if (!isset($exclude[$id]) && isset($exclude[$pid])) {
+                    $exclude[$id] = true;
+                    $changed = true;
+                }
+            }
+        }
+        return $exclude;
     }
 }

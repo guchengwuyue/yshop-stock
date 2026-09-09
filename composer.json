@@ -26,7 +26,8 @@
         "topthink/think-filesystem": "^2.0|^3.0",
         "topthink/think-view": "^2.0",
         "topthink/think-multi-app": "^1.1",
-        "phpoffice/phpspreadsheet": "^5.9"
+        "phpoffice/phpspreadsheet": "^5.9",
+        "yansongda/pay": "3.7"
     },
     "require-dev": {
         "topthink/think-dumper": "^1.0",
@@ -34,7 +35,8 @@
     },
     "autoload": {
         "psr-4": {
-            "app\\": "app"
+            "app\\": "app",
+            "addons\\": "addons/"
         },
         "psr-0": {
             "": "extend/"
